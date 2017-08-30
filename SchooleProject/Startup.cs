@@ -62,7 +62,7 @@ namespace SchooleProject
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Dishes}/{action=Index}/{id?}");
             });
 
             DbInitializer.Initialize(context, userManager, roleManager);

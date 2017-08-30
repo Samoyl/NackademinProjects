@@ -32,7 +32,7 @@ namespace SchooleProject.Controllers
                 return NotFound();
             }
 
-            var dishes = context.Dishes
+            var dishes = await context.Dishes
                 .Include(d => d.DishIngredients)
                 .ThenInclude(di => di.Ingredient)
                 .SingleOrDefaultAsync(m => m.DishId == id);
@@ -77,12 +77,12 @@ namespace SchooleProject.Controllers
                 return NotFound();
             }
 
-            var dishes = await context.Dishes.SingleOrDefaultAsync(m => m.DishId == id);
-            if (dishes == null)
+            var dish = await context.Dishes.SingleOrDefaultAsync(m => m.DishId == id);
+            if (dish == null)
             {
                 return NotFound();
             }
-            return View(dishes);
+            return View(dish);
         }
 
         // POST: Dishes/Edit/5
@@ -126,7 +126,7 @@ namespace SchooleProject.Controllers
             {
                 return NotFound();
             }
-            var dish = context.Dishes.SingleOrDefaultAsync(m => m.DishId == id);
+            var dish = await context.Dishes.SingleOrDefaultAsync(m => m.DishId == id);
             if (dish == null)
             {
                 return NotFound();
