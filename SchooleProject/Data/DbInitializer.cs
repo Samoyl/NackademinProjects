@@ -30,19 +30,24 @@ namespace SchooleProject.Data
                 var cheese = new Ingredient { Name = "Cheese" };
                 var tomatoe = new Ingredient { Name = "Tomatoe" };
                 var ham = new Ingredient { Name = "Ham" };
+
                 var capricciosa = new Dish { Name = "Capricciosa", Price = 79 };
                 var margaritha = new Dish { Name = "Margaritha", Price = 69 };
                 var hawaii = new Dish { Name = "Hawaii", Price = 85 };
+
                 var capricciosaCheese = new DishIngredient { Dish = capricciosa, Ingredient = cheese };
                 var capricciosaTomatoe = new DishIngredient { Dish = capricciosa, Ingredient = tomatoe };
                 var capricciosaHam = new DishIngredient { Dish = capricciosa, Ingredient = ham };
-                capricciosa.DishIngredients = new List<DishIngredient>();
-                capricciosa.DishIngredients.Add(capricciosaTomatoe);
-                capricciosa.DishIngredients.Add(capricciosaCheese);
-                capricciosa.DishIngredients.Add(capricciosaHam);
-                context.Dishes.Add(capricciosa);
-                context.Dishes.Add(margaritha);
-                context.Dishes.Add(hawaii);
+
+                var margarithaHam = new DishIngredient { Dish = margaritha, Ingredient = ham };
+                var margarithaTomatoe = new DishIngredient { Dish = margaritha, Ingredient = tomatoe };
+
+                var hawaiiChess = new DishIngredient { Dish = hawaii, Ingredient = cheese };
+
+                capricciosa.DishIngredients = new List<DishIngredient> { capricciosaTomatoe, capricciosaCheese, capricciosaHam };
+                margaritha.DishIngredients = new List<DishIngredient> { margarithaHam, margarithaTomatoe };
+                hawaii.DishIngredients = new List<DishIngredient> { hawaiiChess };
+                context.Dishes.AddRange(capricciosa, margaritha, hawaii);
                 context.SaveChanges();
             }
         }

@@ -22,6 +22,16 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.DishId">Edit</a> | 
+    <h4>Ingredients</h4>
+    <hr />
+        @foreach (var i in Model.DishIngredients.Where(di => di.DishId == Model.DishId))
+        {
+
+            <p>@i.Ingredient.Name</p>
+        }
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.DishId">Edit</a> |
     <a asp-action="Index">Back To List</a>
 </div>
