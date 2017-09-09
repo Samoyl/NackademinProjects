@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using SchooleProject.Data;
 using SchooleProject.Models;
 using System.Threading.Tasks;
-using System;
 using System.Linq;
+using SchooleProject.Models.Entities;
 
 namespace SchooleProject.Controllers
 {
@@ -72,17 +72,23 @@ namespace SchooleProject.Controllers
         //GET: Dishes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            DishIngredentView modelView = new DishIngredentView();
             if (id == null)
             {
                 return NotFound();
             }
-
-            var dish = await context.Dishes.SingleOrDefaultAsync(m => m.DishId == id);
-            if (dish == null)
+            modelView.ingredient = await context.Ingredients.ToListAsync();
+            modelView.dish = await context.Dishes
+                .Include(d => d.DishIngredients)
+                .ThenInclude(di => di.Ingredient)
+                .SingleOrDefaultAsync(m => m.DishId == id);
+            //modelView.dish = await context.Dishes.SingleOrDefaultAsync(m => m.DishId == id);
+            //var dish = await context.Dishes.SingleOrDefaultAsync(m => m.DishId == id);
+            if (modelView == null)
             {
                 return NotFound();
             }
-            return View(dish);
+            return View(modelView);
         }
 
         // POST: Dishes/Edit/5

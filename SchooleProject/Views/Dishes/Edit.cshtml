@@ -1,4 +1,4 @@
-﻿@model SchooleProject.Models.Dish
+﻿@model SchooleProject.Models.Entities.DishIngredentView
 @{
     ViewData["Title"] = "Edit";
 }
@@ -10,16 +10,24 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="DishId" />
+            <input type="hidden" asp-for="dish.DishId" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="dish.Name" class="control-label"></label>
+                <input asp-for="dish.Name" class="form-control" />
+                <span asp-validation-for="dish.Name" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                @foreach (var item in Model.ingredient)
+                {
+                    var check = Model.dish.DishIngredients.Any(x => x.IngredientId == item.IngredientId) ? "checked" : "";
+                    <input type="checkbox" name="Ingredient-@item.IngredientId" @check />
+                    <span asp-for="@item .Name">@item.Name</span>
+                }
+            </div> <div class="form-group">
+                <label asp-for="dish.Price" class="control-label"></label>
+                <input asp-for="dish.Price" class="form-control" />
+                <span asp-validation-for="dish.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
