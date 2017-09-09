@@ -21,10 +21,11 @@
                 @foreach (var item in Model.ingredient)
                 {
                     var check = Model.dish.DishIngredients.Any(x => x.IngredientId == item.IngredientId) ? "checked" : "";
-                    <input type="checkbox" name="Ingredient-@item.IngredientId" @check />
-                    <span asp-for="@item .Name">@item.Name</span>
+                    <input type="checkbox" name="@item.IngredientId" @check />
+                    <span asp-for="@item.Name">@item.Name</span>
                 }
-            </div> <div class="form-group">
+            </div>
+            <div class="form-group">
                 <label asp-for="dish.Price" class="control-label"></label>
                 <input asp-for="dish.Price" class="form-control" />
                 <span asp-validation-for="dish.Price" class="text-danger"></span>

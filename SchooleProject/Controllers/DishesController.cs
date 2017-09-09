@@ -5,6 +5,8 @@ using SchooleProject.Models;
 using System.Threading.Tasks;
 using System.Linq;
 using SchooleProject.Models.Entities;
+using Microsoft.AspNetCore.Http;
+using System;
 
 namespace SchooleProject.Controllers
 {
@@ -82,8 +84,6 @@ namespace SchooleProject.Controllers
                 .Include(d => d.DishIngredients)
                 .ThenInclude(di => di.Ingredient)
                 .SingleOrDefaultAsync(m => m.DishId == id);
-            //modelView.dish = await context.Dishes.SingleOrDefaultAsync(m => m.DishId == id);
-            //var dish = await context.Dishes.SingleOrDefaultAsync(m => m.DishId == id);
             if (modelView == null)
             {
                 return NotFound();
@@ -96,17 +96,30 @@ namespace SchooleProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DishId,Name,Price")] Dish dish)
+        public async Task<IActionResult> Edit(int id, Dish dish, IFormCollection form)
         {
             if (id != dish.DishId)
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
                 {
+                    RemoveIngredientsByDish(id);
+                    foreach (var item in context.Ingredients)
+                    {
+                        var dishIngredent = new DishIngredient();
+                        var checkId = form.Keys.Where(k => k == $"{item.IngredientId}").FirstOrDefault();
+                        if (checkId != null)
+                        {
+                            dishIngredent.DishId = id;
+                            dishIngredent.Dish = dish;
+                            dishIngredent.IngredientId = Int32.Parse(checkId);
+                            dishIngredent.Ingredient = context.Ingredients.Where(x => x.IngredientId == Int32.Parse(checkId)).FirstOrDefault();
+                        }
+                        context.Add(dishIngredent);
+                    }
                     context.Update(dish);
                     await context.SaveChangesAsync();
                 }
@@ -124,6 +137,17 @@ namespace SchooleProject.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(dish);
+        }
+
+        public void RemoveIngredientsByDish(int id)
+        {
+            var dishIng = context.DishIngredients.Where(d => d.DishId == id);
+            foreach (var item in dishIng)
+            {
+                context.Remove(item);
+
+            }
+            context.SaveChanges();
         }
         //GET: Dieshes/Delete/5
         public async Task<IActionResult> Delete(int? id)
