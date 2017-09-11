@@ -13,7 +13,7 @@
             <input type="hidden" asp-for="dish.DishId" />
             <div class="form-group">
                 <label class="control-label">Category</label>
-                <select asp-for="dish.categoryId" class="form-control" asp-items="ViewBag.Categoryist"></select>
+                <select asp-for="dish.categoryId" class="form-control" asp-items="ViewBag.CategoryList"></select>
                 <span asp-validation-for="dish.categoryId" class="text-danger"></span>
             </div> 
             <div class="form-group">

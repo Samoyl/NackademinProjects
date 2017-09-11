@@ -89,7 +89,7 @@ namespace SchooleProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["Categoryist"] = new SelectList(context.Category, "id", "name", modelView.dish.categoryId); ;
+            ViewData["CategoryList"] = new SelectList(context.Category, "id", "name", modelView.dish.categoryId); ;
             return View(modelView);
         }
 
