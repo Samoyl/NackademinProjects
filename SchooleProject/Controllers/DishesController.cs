@@ -7,6 +7,7 @@ using System.Linq;
 using SchooleProject.Models.Entities;
 using Microsoft.AspNetCore.Http;
 using System;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SchooleProject.Controllers
 {
@@ -22,7 +23,7 @@ namespace SchooleProject.Controllers
         //GET: Dieshes
         public async Task<IActionResult> Index()
         {
-            var dishes = context.Dishes;
+            var dishes = context.Dishes.Include(x => x.category);
             return View(await dishes.ToListAsync());
         }
 
@@ -34,7 +35,7 @@ namespace SchooleProject.Controllers
                 return NotFound();
             }
 
-            var dishes = await context.Dishes
+            var dishes = await context.Dishes.Include(ca => ca.category)
                 .Include(d => d.DishIngredients)
                 .ThenInclude(di => di.Ingredient)
                 .SingleOrDefaultAsync(m => m.DishId == id);
@@ -80,7 +81,7 @@ namespace SchooleProject.Controllers
                 return NotFound();
             }
             modelView.ingredient = await context.Ingredients.ToListAsync();
-            modelView.dish = await context.Dishes
+            modelView.dish = await context.Dishes.Include(ca => ca.category)
                 .Include(d => d.DishIngredients)
                 .ThenInclude(di => di.Ingredient)
                 .SingleOrDefaultAsync(m => m.DishId == id);
@@ -88,6 +89,7 @@ namespace SchooleProject.Controllers
             {
                 return NotFound();
             }
+            ViewData["Categoryist"] = new SelectList(context.Category, "id", "name", modelView.dish.categoryId); ;
             return View(modelView);
         }
 

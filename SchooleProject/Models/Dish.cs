@@ -10,5 +10,7 @@ namespace SchooleProject.Models
         public string Name { get; set; }
         public int Price { get; set; }
         public List<DishIngredient> DishIngredients { get; set; }
+        public Category category { get; set; }
+        public int categoryId { get; set; }
     }
 }

@@ -12,11 +12,20 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="dish.DishId" />
             <div class="form-group">
+                <label class="control-label">Category</label>
+                <select asp-for="dish.categoryId" class="form-control" asp-items="ViewBag.Categoryist"></select>
+                <span asp-validation-for="dish.categoryId" class="text-danger"></span>
+            </div> 
+            <div class="form-group">
                 <label asp-for="dish.Name" class="control-label"></label>
                 <input asp-for="dish.Name" class="form-control" />
                 <span asp-validation-for="dish.Name" class="text-danger"></span>
+            </div>            
+            <div class="form-group">
+                <label asp-for="dish.Price" class="control-label"></label>
+                <input asp-for="dish.Price" class="form-control" />
+                <span asp-validation-for="dish.Price" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 @foreach (var item in Model.ingredient)
                 {
@@ -24,11 +33,6 @@
                     <input type="checkbox" name="@item.IngredientId" @check />
                     <span asp-for="@item.Name">@item.Name</span>
                 }
-            </div>
-            <div class="form-group">
-                <label asp-for="dish.Price" class="control-label"></label>
-                <input asp-for="dish.Price" class="form-control" />
-                <span asp-validation-for="dish.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />

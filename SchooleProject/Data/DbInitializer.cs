@@ -28,14 +28,18 @@ namespace SchooleProject.Data
 
             if (context.Dishes.ToList().Count == 0)
             {
+                var pizza = new Category { name = "Pizza" };
+                var pasta = new Category { name = "Pasta" };
+                var salad = new Category { name = "Salad" };
+
                 var cheese = new Ingredient { Name = "Cheese" };
                 var tomatoe = new Ingredient { Name = "Tomatoe" };
                 var ham = new Ingredient { Name = "Ham" };
                 var lok = new Ingredient { Name = "Lök" };
 
-                var capricciosa = new Dish { Name = "Capricciosa", Price = 79 };
-                var margaritha = new Dish { Name = "Margaritha", Price = 69 };
-                var hawaii = new Dish { Name = "Hawaii", Price = 85 };
+                var capricciosa = new Dish { Name = "Capricciosa", Price = 79, category = pizza };
+                var margaritha = new Dish { Name = "Margaritha", Price = 69, category = pizza };
+                var hawaii = new Dish { Name = "Hawaii", Price = 85, category = pizza };
 
                 var capricciosaCheese = new DishIngredient { Dish = capricciosa, Ingredient = cheese };
                 var capricciosaTomatoe = new DishIngredient { Dish = capricciosa, Ingredient = tomatoe };
@@ -50,6 +54,7 @@ namespace SchooleProject.Data
                 margaritha.DishIngredients = new List<DishIngredient> { margarithaHam, margarithaTomatoe };
                 hawaii.DishIngredients = new List<DishIngredient> { hawaiiChess };
                 context.Dishes.AddRange(capricciosa, margaritha, hawaii);
+                context.Category.AddRange(pizza, pasta, salad);
                 context.SaveChanges();
             }
         }

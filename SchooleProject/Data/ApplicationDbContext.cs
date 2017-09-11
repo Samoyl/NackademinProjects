@@ -37,6 +37,7 @@ namespace SchooleProject.Data
         public virtual DbSet<Dish> Dishes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<DishIngredient> DishIngredients { get; set; }
+        public DbSet<SchooleProject.Models.Category> Category { get; set; }
         //public DbSet<DishIngredentView> DishIngredentView { get; set; }
     }
 }
