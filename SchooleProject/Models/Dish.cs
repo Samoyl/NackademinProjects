@@ -12,5 +12,6 @@ namespace SchooleProject.Models
         public List<DishIngredient> DishIngredients { get; set; }
         public Category category { get; set; }
         public int categoryId { get; set; }
+        public Cart cart { get; set; }
     }
 }

@@ -36,6 +36,8 @@ namespace SchooleProject
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<UserManager<ApplicationUser>>();
             services.AddTransient<RoleManager<IdentityRole>>();
+            services.AddTransient<CartServices>();
+            services.AddSession();
 
             services.AddMvc();
         }
@@ -53,7 +55,7 @@ namespace SchooleProject
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseSession();
             app.UseStaticFiles();
 
             app.UseAuthentication();

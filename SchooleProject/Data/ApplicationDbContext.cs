@@ -38,6 +38,7 @@ namespace SchooleProject.Data
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<DishIngredient> DishIngredients { get; set; }
         public DbSet<SchooleProject.Models.Category> Category { get; set; }
+        public DbSet<SchooleProject.Models.Cart> Cart { get; set; }
         //public DbSet<DishIngredentView> DishIngredentView { get; set; }
     }
 }
