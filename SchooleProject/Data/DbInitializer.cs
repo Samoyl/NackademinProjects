@@ -32,10 +32,10 @@ namespace SchooleProject.Data
                 var pasta = new Category { name = "Pasta" };
                 var salad = new Category { name = "Salad" };
 
-                var cheese = new Ingredient { Name = "Cheese" };
-                var tomatoe = new Ingredient { Name = "Tomatoe" };
-                var ham = new Ingredient { Name = "Ham" };
-                var lok = new Ingredient { Name = "Lök" };
+                var cheese = new Ingredient { Name = "Cheese", Price = 5 };
+                var tomatoe = new Ingredient { Name = "Tomatoe", Price = 6 };
+                var ham = new Ingredient { Name = "Ham", Price = 9 };
+                var lok = new Ingredient { Name = "Lök", Price = 15 };
 
                 var capricciosa = new Dish { Name = "Capricciosa", Price = 79, category = pizza };
                 var margaritha = new Dish { Name = "Margaritha", Price = 69, category = pizza };

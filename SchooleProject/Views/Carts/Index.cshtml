@@ -2,10 +2,10 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h2>Your Cart Item</h2>
-<p>
+<h2>Your Cart Items</h2>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
 <table class="table">
     <thead>
         <tr>
@@ -15,27 +15,54 @@
             <th>
                 <label for="Price">Price</label>
             </th>
+            <th>
+                <label for="Price">Ingredents</label>
+            </th>
+            <th>
+                <label for="Price">Extra Ingredents</label>
+            </th>
         </tr>
     </thead>
     <tbody>
-        @if (Model.Dishes != null)
+        @if (Model.CartItem != null)
         {
-            @foreach (var item in Model.Dishes)
+            @foreach (var cartItem in Model.CartItem)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Name)
+                        @Html.DisplayFor(modelItem => cartItem.dishItem.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Price)
+                        @Html.DisplayFor(modelItem => cartItem.price)
                     </td>
                     <td>
-                        <a asp-controller="Carts" asp-action="Edit" asp-route-id="@item.DishId">Edit</a> |
-                        <a asp-controller="Carts" asp-action="Details" asp-route-id="@item.DishId">Details</a> |
-                        <a asp-controller="Carts" asp-action="Delete" asp-route-id="@item.DishId">Delete</a>
+                        @foreach (var ing in cartItem.dishItem.DishIngredients)
+                        {
+                            <p>@ing.Ingredient.Name</p>
+                        }
+                    </td>
+                    @if (cartItem.ExtraIngredients != null)
+                    {
+                        <td>
+                            @foreach (var ing in cartItem.ExtraIngredients)
+                            {
+                                <p>@ing.Name</p>
+                            }
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <p>Nothing to Show</p>
+                        </td>
+
+                    }
+                    <td>
+                        <a asp-controller="Carts" asp-action="Edit" asp-route-id="@cartItem.id">Edit</a> |
+                        <a asp-controller="Carts" asp-action="Delete" asp-route-id="@cartItem.id">Delete</a>
                     </td>
                 </tr>
-            }  
+            }
         }
     </tbody>
 </table>

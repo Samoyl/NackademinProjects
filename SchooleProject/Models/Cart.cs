@@ -4,6 +4,6 @@ namespace SchooleProject.Models
     public class Cart
     {
         public int id { get; set; }
-        public List<Dish> Dishes { get; set; }
+        public List<CartItem> CartItem { get; set; } = new List<CartItem>();
     }
 }

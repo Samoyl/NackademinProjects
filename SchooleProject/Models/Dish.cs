@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SchooleProject.Models.Entities;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SchooleProject.Models
@@ -8,10 +9,9 @@ namespace SchooleProject.Models
         public int DishId { get; set; }
         [Required]
         public string Name { get; set; }
-        public int Price { get; set; }
+        public double Price { get; set; }
         public List<DishIngredient> DishIngredients { get; set; }
         public Category category { get; set; }
         public int categoryId { get; set; }
-        public Cart cart { get; set; }
     }
 }
